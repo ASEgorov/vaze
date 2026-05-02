@@ -1,0 +1,22 @@
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp
+*.tmp
+*.temp
+~$*.docx
+~$*.xlsx
+
+# Logs
+*.log
+logs/
