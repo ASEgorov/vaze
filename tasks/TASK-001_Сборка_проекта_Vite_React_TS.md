@@ -13,12 +13,12 @@ TASK-001
 - [ ] Другое
 
 ## Статус
-- [ ] Бэклог
-- [ ] Готово к старту
-- [ ] В работе
-- [ ] Code Review
-- [ ] Тестирование
-- [ ] Завершено
+- [x] Бэклог
+- [x] Готово к старту
+- [x] В работе
+- [x] Code Review
+- [x] Тестирование
+- [x] Завершено
 
 ## Приоритет
 - [x] Критический
@@ -39,23 +39,23 @@ TASK-001
 
 ## Подзадачи
 
-- [ ] `npm create vite@latest -- --template react-ts` — инициализация проекта
-- [ ] Установка зависимостей: three, @react-three/fiber, @react-three/drei, zustand, mathjs, dexie
-- [ ] Настройка ESLint + Prettier для React/TS
-- [ ] Настройка husky + lint-staged для pre-commit хуков
-- [ ] Создание структуры папок: `src/components/`, `src/hooks/`, `src/stores/`, `src/utils/`, `src/types/`, `src/styles/`
-- [ ] Настройка path aliases (`@/` → `src/`)
-- [ ] Создание базового App.tsx с layout: sidebar (формула + параметры) + main (3D preview) + toolbar (экспорт)
-- [ ] Проверка: `npm run dev` запускается, HMR работает
+- [x] `npm create vite@latest -- --template react-ts` — инициализация проекта
+- [x] Установка зависимостей: three, @react-three/fiber, @react-three/drei, zustand, mathjs, dexie
+- [x] Настройка ESLint + Prettier для React/TS
+- [x] Настройка husky + lint-staged для pre-commit хуков
+- [x] Создание структуры папок: `src/components/`, `src/hooks/`, `src/stores/`, `src/utils/`, `src/types/`, `src/styles/`
+- [x] Настройка path aliases (`@/` → `src/`)
+- [x] Создание базового App.tsx с layout: sidebar (формула + параметры) + main (3D preview) + toolbar (экспорт)
+- [x] Проверка: `npm run dev` запускается, HMR работает
 
 ## Критерии готовности (Definition of Done)
 
-- [ ] Проект собирается (`npm run build` без ошибок)
-- [ ] Dev-сервер запускается, HMR работает
-- [ ] ESLint + Prettier настроены, pre-commit хуки работают
-- [ ] Структура папок соответствует плану
-- [ ] Базовый layout рендерится
-- [ ] Path aliases работают
+- [x] Проект собирается (`npm run build` без ошибок)
+- [x] Dev-сервер запускается, HMR работает
+- [x] ESLint + Prettier настроены, pre-commit хуки работают
+- [x] Структура папок соответствует плану
+- [x] Базовый layout рендерится
+- [x] Path aliases работают
 
 ## Связанные элементы
 - ADR: [ADR-007 Сборка Vite]
@@ -63,14 +63,14 @@ TASK-001
 
 ## Чек-лист разработки
 
-- [ ] Инициализирован Vite + React + TS
-- [ ] Установлены все зависимости
-- [ ] Линтер + форматтер настроены
-- [ ] Pre-commit хуки работают
-- [ ] Структура папок создана
-- [ ] Path aliases настроены
-- [ ] Базовый layout рендерится
-- [ ] npm run build проходит
+- [x] Инициализирован Vite + React + TS
+- [x] Установлены все зависимости
+- [x] Линтер + форматтер настроены
+- [x] Pre-commit хуки работают
+- [x] Структура папок создана
+- [x] Path aliases настроены
+- [x] Базовый layout рендерится
+- [x] npm run build проходит
 
 ## Комментарии
 [Замечания, вопросы, обсуждения]
