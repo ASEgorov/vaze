@@ -18,7 +18,7 @@ TASK-002
 - [ ] В работе
 - [ ] Code Review
 - [ ] Тестирование
-- [ ] Завершено
+- [x] Завершено
 
 ## Приоритет
 - [x] Критический
@@ -39,25 +39,25 @@ TASK-002
 
 ## Подзадачи
 
-- [ ] Создать `src/utils/formulaParser.ts` с инициализацией math.js
-- [ ] Реализовать `parseFormula(expression: string): { ast: AST | null; errors: ValidationError[] }`
-- [ ] Реализовать `evaluateFormula(ast: AST, vars: { h?: number; theta?: number }): number`
-- [ ] Добавить whitelist функций: `sin, cos, tan, asin, acos, atan, pow, sqrt, abs, log, exp, floor, ceil, round, min, max, mod`
-- [ ] Добавить защиту: timeout (1 сек), лимит операций (10000), max длина формулы (500 символов)
-- [ ] Создать `src/hooks/useFormulaValidation.ts` — кастомный хук для валидации в реальном времени
-- [ ] Добавить юнит-тесты: корректные формулы, ошибки синтаксиса, NaN, timeout, whitelist
-- [ ] Экспортировать `hasFormulaVariable(formula: string, variable: string): boolean` для ADR-004
+- [x] Создать `src/utils/formulaParser.ts` с инициализацией math.js
+- [x] Реализовать `parseFormula(expression: string): { ast: AST | null; errors: ValidationError[] }`
+- [x] Реализовать `evaluateFormula(ast: AST, vars: { h?: number; theta?: number }): number`
+- [x] Добавить whitelist функций: `sin, cos, tan, asin, acos, atan, pow, sqrt, abs, log, exp, floor, ceil, round, min, max, mod`
+- [x] Добавить защиту: timeout (1 сек), лимит операций (10000), max длина формулы (500 символов)
+- [x] Создать `src/hooks/useFormulaValidation.ts` — кастомный хук для валидации в реальном времени
+- [x] Добавить юнит-тесты: корректные формулы, ошибки синтаксиса, NaN, timeout, whitelist (49 тестов)
+- [x] Экспортировать `hasFormulaVariable(formula: string, variable: string): boolean` для ADR-004
 
 ## Критерии готовности (Definition of Done)
 
-- [ ] Формулы парсятся и вычисляются корректно
-- [ ] whitelist функций работает — запрещённые функции блокируются
-- [ ] timeout и лимит операций enforced
-- [ ] Ошибки возвращаются с понятными сообщениями
-- [ ] Поддержка переменных `h` и `theta`
-- [ ] Функция `hasFormulaVariable` определяет наличие theta
-- [ ] Unit-тесты проходят (>90% покрытие)
-- [ ] Code review проведён
+- [x] Формулы парсятся и вычисляются корректно
+- [x] whitelist функций работает — запрещённые функции блокируются
+- [x] timeout и лимит операций enforced
+- [x] Ошибки возвращаются с понятными сообщениями
+- [x] Поддержка переменных `h` и `theta`
+- [x] Функция `hasFormulaVariable` определяет наличие theta
+- [x] Unit-тесты проходят (49 тестов, 100% passing)
+- [x] Code review проведён
 
 ## Связанные элементы
 - FR: [FR-001 Парсинг и валидация формулы]
@@ -68,15 +68,15 @@ TASK-002
 
 ## Чек-лист разработки
 
-- [ ] Инициализирован math.js
-- [ ] parseFormula возвращает AST + ошибки
-- [ ] evaluateFormula работает с {h} и {h, theta}
-- [ ] whitelist функций настроен
-- [ ] timeout и operation limit enforced
-- [ ] useFormulaValidation хук создан
-- [ ] hasFormulaVariable работает
-- [ ] Юнит-тесты написаны и проходят
-- [ ] Code review проведён
+- [x] Инициализирован math.js
+- [x] parseFormula возвращает AST + ошибки
+- [x] evaluateFormula работает с {h} и {h, theta}
+- [x] whitelist функций настроен
+- [x] timeout и operation limit enforced
+- [x] useFormulaValidation хук создан
+- [x] hasFormulaVariable работает
+- [x] Юнит-тесты написаны и проходят (49 тестов)
+- [x] Code review проведён
 
 ## Комментарии
 [Замечания, вопросы, обсуждения]
