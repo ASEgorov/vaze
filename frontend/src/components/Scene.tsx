@@ -50,6 +50,17 @@ export function Scene({ geometry }: SceneProps) {
       {/* Фоновый ambient */}
       <ambientLight intensity={0.2} />
 
+      {/* Акцентный прожектор сверху-справа (тени) */}
+      <spotLight
+        position={[20, 30, 10]}
+        angle={0.4}
+        penumbra={0.6}
+        intensity={0.8}
+        castShadow
+        shadow-mapSize-width={512}
+        shadow-mapSize-height={512}
+      />
+
       {/* ─── Геометрия вазы ─────────────────────────────────────────── */}
       {geometry && <VaseMesh geometry={geometry} />}
 
