@@ -4,6 +4,18 @@
 import { create } from 'zustand';
 import type { VaseConfig } from '@/types/vase';
 
+/** Состояние 3D-сцены */
+export interface SceneState {
+  /** Показывать сетку (GridHelper) */
+  showGrid: boolean;
+  toggleGrid: () => void;
+  /** Показывать оси (AxesHelper) */
+  showAxes: boolean;
+  toggleAxes: () => void;
+  /** Сбросить все тогглы */
+  resetScene: () => void;
+}
+
 interface VaseState {
   config: VaseConfig;
   setConfig: (partial: Partial<VaseConfig>) => void;
@@ -20,7 +32,7 @@ const defaultConfig: VaseConfig = {
   slices: 50,
 };
 
-export const useVaseStore = create<VaseState>((set) => ({
+export const useVaseStore = create<VaseState & SceneState>((set, get) => ({
   config: defaultConfig,
   setConfig: (partial) =>
     set((state) => ({
@@ -29,4 +41,11 @@ export const useVaseStore = create<VaseState>((set) => ({
   resetConfig: () => set({ config: defaultConfig, formulaError: null }),
   formulaError: null,
   setFormulaError: (error) => set({ formulaError: error }),
+
+  // Scene state
+  showGrid: true,
+  showAxes: false,
+  toggleGrid: () => set({ showGrid: !get().showGrid }),
+  toggleAxes: () => set({ showAxes: !get().showAxes }),
+  resetScene: () => set({ showGrid: true, showAxes: false }),
 }));

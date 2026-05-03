@@ -66,8 +66,9 @@ export function generateVaseGeometry(params: GeometryParams): GeometryData {
   }
 
   const numVertices = (segments + 1) * (slices + 1);
-  // Float32Array гарантирует числовые значения (без undefined)
-  const vertices = new Float32Array(numVertices * 3);
+
+  // plain number[] — TS strict mode не доверяет Float32Array индексацию
+  const vertices = new Array(numVertices * 3).fill(0);
   const indices: number[] = [];
 
   // ─── Шаг 1: Генерация вершин ──────────────────────────────────────────
@@ -100,9 +101,10 @@ export function generateVaseGeometry(params: GeometryParams): GeometryData {
         r = 0;
       }
 
-      vertices[idx * 3] = r * Math.cos(theta);
-      vertices[idx * 3 + 1] = h;
-      vertices[idx * 3 + 2] = r * Math.sin(theta);
+      const vi = idx * 3;
+      vertices[vi] = r * Math.cos(theta);
+      vertices[vi + 1] = h;
+      vertices[vi + 2] = r * Math.sin(theta);
     }
   }
 
@@ -130,22 +132,25 @@ export function generateVaseGeometry(params: GeometryParams): GeometryData {
 
   // ─── Шаг 3: Вычисление нормалей (computeVertexNormals) ─────────────────
 
-  // Накопление face normals на каждую вершину
-  const normalSums = new Float32Array(numVertices * 3);
+  const normalSums = new Array(numVertices * 3).fill(0);
 
   for (let k = 0; k < indices.length; k += 3) {
-    const a = indices[k] * 3;
-    const b = indices[k + 1] * 3;
-    const c = indices[k + 2] * 3;
+    const a = indices[k]!;
+    const b = indices[k + 1]!;
+    const c = indices[k + 2]!;
+
+    const ai = a * 3;
+    const bi = b * 3;
+    const ci = c * 3;
 
     // Векторы AB и AC
-    const abx = vertices[b] - vertices[a];
-    const aby = vertices[b + 1] - vertices[a + 1];
-    const abz = vertices[b + 2] - vertices[a + 2];
+    const abx = vertices[bi]! - vertices[ai]!;
+    const aby = vertices[bi + 1]! - vertices[ai + 1]!;
+    const abz = vertices[bi + 2]! - vertices[ai + 2]!;
 
-    const acx = vertices[c] - vertices[a];
-    const acy = vertices[c + 1] - vertices[a + 1];
-    const acz = vertices[c + 2] - vertices[a + 2];
+    const acx = vertices[ci]! - vertices[ai]!;
+    const acy = vertices[ci + 1]! - vertices[ai + 1]!;
+    const acz = vertices[ci + 2]! - vertices[ai + 2]!;
 
     // Cross product AB × AC
     const nx = aby * acz - abz * acy;
@@ -153,34 +158,31 @@ export function generateVaseGeometry(params: GeometryParams): GeometryData {
     const nz = abx * acy - aby * acx;
 
     // Накопление на вершину
-    normalSums[a] += nx;
-    normalSums[a + 1] += ny;
-    normalSums[a + 2] += nz;
+    normalSums[ai] += nx;
+    normalSums[ai + 1] += ny;
+    normalSums[ai + 2] += nz;
 
-    const bb = b * 3;
-    normalSums[bb] += nx;
-    normalSums[bb + 1] += ny;
-    normalSums[bb + 2] += nz;
+    normalSums[bi] += nx;
+    normalSums[bi + 1] += ny;
+    normalSums[bi + 2] += nz;
 
-    const cc = c * 3;
-    normalSums[cc] += nx;
-    normalSums[cc + 1] += ny;
-    normalSums[cc + 2] += nz;
+    normalSums[ci] += nx;
+    normalSums[ci + 1] += ny;
+    normalSums[ci + 2] += nz;
   }
 
   // Нормализация
-  const normals = new Float32Array(numVertices * 3);
+  const normals = new Array(numVertices * 3).fill(0);
   for (let k = 0; k < numVertices; k++) {
     const ix = k * 3;
-    const len = Math.sqrt(
-      normalSums[ix] * normalSums[ix] +
-        normalSums[ix + 1] * normalSums[ix + 1] +
-        normalSums[ix + 2] * normalSums[ix + 2],
-    );
+    const nx = normalSums[ix]!;
+    const ny = normalSums[ix + 1]!;
+    const nz = normalSums[ix + 2]!;
+    const len = Math.sqrt(nx * nx + ny * ny + nz * nz);
     if (len > 1e-10) {
-      normals[ix] = normalSums[ix] / len;
-      normals[ix + 1] = normalSums[ix + 1] / len;
-      normals[ix + 2] = normalSums[ix + 2] / len;
+      normals[ix] = nx / len;
+      normals[ix + 1] = ny / len;
+      normals[ix + 2] = nz / len;
     } else {
       normals[ix] = 0;
       normals[ix + 1] = 1;
@@ -198,10 +200,10 @@ export function generateVaseGeometry(params: GeometryParams): GeometryData {
     maxZ = -Infinity;
 
   for (let k = 0; k < numVertices; k++) {
-    const x = vertices[k * 3];
-    const y = vertices[k * 3 + 1];
-    const z = vertices[k * 3 + 2];
-
+    const ix = k * 3;
+    const x = vertices[ix]!;
+    const y = vertices[ix + 1]!;
+    const z = vertices[ix + 2]!;
     if (x < minX) minX = x;
     if (y < minY) minY = y;
     if (z < minZ) minZ = z;
@@ -219,8 +221,8 @@ export function generateVaseGeometry(params: GeometryParams): GeometryData {
     const step = (maxHeight - minHeight) / segments;
 
     // theta=0 для объёма (радиус усредняется по углу)
-    const r0 = parsedFormula.evaluate(h0, 0);
-    const r1 = parsedFormula.evaluate(h1, 0);
+    const r0 = Math.abs(parsedFormula.evaluate(h0, 0));
+    const r1 = Math.abs(parsedFormula.evaluate(h1, 0));
 
     const rAvgSq = (r0 * r0 + r0 * r1 + r1 * r1) / 3;
     volume += Math.PI * Math.abs(rAvgSq) * step;
@@ -230,17 +232,21 @@ export function generateVaseGeometry(params: GeometryParams): GeometryData {
 
   let surfaceArea = 0;
   for (let k = 0; k < indices.length; k += 3) {
-    const a = indices[k] * 3;
-    const b = indices[k + 1] * 3;
-    const c = indices[k + 2] * 3;
+    const a = indices[k]!;
+    const b = indices[k + 1]!;
+    const c = indices[k + 2]!;
 
-    const abx = vertices[b] - vertices[a];
-    const aby = vertices[b + 1] - vertices[a + 1];
-    const abz = vertices[b + 2] - vertices[a + 2];
+    const ai = a * 3;
+    const bi = b * 3;
+    const ci = c * 3;
 
-    const acx = vertices[c] - vertices[a];
-    const acy = vertices[c + 1] - vertices[a + 1];
-    const acz = vertices[c + 2] - vertices[a + 2];
+    const abx = vertices[bi]! - vertices[ai]!;
+    const aby = vertices[bi + 1]! - vertices[ai + 1]!;
+    const abz = vertices[bi + 2]! - vertices[ai + 2]!;
+
+    const acx = vertices[ci]! - vertices[ai]!;
+    const acy = vertices[ci + 1]! - vertices[ai + 1]!;
+    const acz = vertices[ci + 2]! - vertices[ai + 2]!;
 
     const crossX = aby * acz - abz * acy;
     const crossY = abz * acx - abx * acz;
@@ -250,9 +256,9 @@ export function generateVaseGeometry(params: GeometryParams): GeometryData {
   }
 
   return {
-    vertices: Array.from(vertices),
+    vertices,
     indices,
-    normals: Array.from(normals),
+    normals,
     volume,
     surfaceArea,
     boundingBox: [
