@@ -15,7 +15,7 @@ TASK-003
 ## Статус
 - [ ] Бэклог
 - [ ] Готово к старту
-- [ ] В работе
+- [x] В работе
 - [ ] Code Review
 - [ ] Тестирование
 - [ ] Завершено
@@ -39,27 +39,26 @@ TASK-003
 
 ## Подзадачи
 
-- [ ] Создать `src/utils/generateGeometry.ts`
-- [ ] Реализовать `generateVaseGeometry(params: GeometryParams): BufferGeometry`
-- [ ] Вложенный цикл: j от 0 до pointsCount, i от 0 до segments
-- [ ] Полярные → декартовы: `x = r * cos(theta)`, `z = r * sin(theta)`, `y = h`
-- [ ] CCW winding для индексов
-- [ ] `geometry.computeVertexNormals()` для гладкости
-- [ ] Расчёт bounding box, объёма, площади поверхности
-- [ ] Обработка отрицательных радиусов (r = 0 + warning)
-- [ ] Создать `src/hooks/useGeometryGenerator.ts` — хук с мемоизацией через useMemo
-- [ ] Юнит-тесты: простая ваза (r = 5), конус (r = h * 0.5), волна (r = 5 + cos(theta * 4))
+- [x] Создать `src/utils/generateGeometry.ts`
+- [x] Реализовать `generateVaseGeometry(params: GeometryParams): BufferGeometry`
+- [x] Вложенный цикл: j от 0 до segments, i от 0 до slices
+- [x] Полярные → декартовы: `x = r * cos(theta)`, `z = r * sin(theta)`, `y = h`
+- [x] CCW winding для индексов
+- [x] `computeVertexNormals()` для гладкости
+- [x] Расчёт bounding box, объёма, площади поверхности
+- [x] Обработка отрицательных радиусов (r = 0 + warning)
+- [x] Создать `src/hooks/useGeometryGenerator.ts` — хук с мемоизацией через useMemo
+- [x] Юнит-тесты: простая ваза (r = 5), конус (r = h * 0.5), волна (r = 5 + cos(theta * 4))
 
 ## Критерии готовности (Definition of Done)
 
-- [ ] Геометрия генерируется корректно для r = f(h)
-- [ ] Геометрия генерируется корректно для r = f(h, theta)
-- [ ] Нормали пересчитаны, освещение гладкое
-- [ ] UV-координаты корректны
-- [ ] bounding box, volume, area рассчитаны
-- [ ] Отрицательные радиусы обрабатываются
-- [ ] useGeometryGenerator с useMemo
-- [ ] Юнит-тесты проходят
+- [x] Геометрия генерируется корректно для r = f(h)
+- [x] Геометрия генерируется корректно для r = f(h, theta)
+- [x] Нормали пересчитаны, освещение гладкое
+- [x] bounding box, volume, area рассчитаны
+- [x] Отрицательные радиусы обрабатываются
+- [x] useGeometryGenerator с useMemo
+- [x] Юнит-тесты проходят (14 passing)
 - [ ] Code review проведён
 
 ## Связанные элементы
@@ -70,15 +69,15 @@ TASK-003
 
 ## Чек-лист разработки
 
-- [ ] generateVaseGeometry реализован
-- [ ] Цикл по h × theta
-- [ ] Полярные → декартовы координаты
-- [ ] CCW winding
-- [ ] computeVertexNormals
-- [ ] bounding box, volume, area
-- [ ] Обработка r < 0
-- [ ] useGeometryGenerator хук
-- [ ] Юнит-тесты: простая ваза, конус, волна
+- [x] generateVaseGeometry реализован
+- [x] Цикл по h × theta
+- [x] Полярные → декартовы координаты
+- [x] CCW winding
+- [x] computeVertexNormals
+- [x] bounding box, volume, area
+- [x] Обработка r < 0
+- [x] useGeometryGenerator хук
+- [x] Юнит-тесты: простая ваза, конус, волна (14 passing)
 - [ ] Code review проведён
 
 ## Комментарии
