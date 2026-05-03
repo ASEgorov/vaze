@@ -25,11 +25,11 @@ interface VaseState {
 }
 
 const defaultConfig: VaseConfig = {
-  formula: '2 + sin(pi * h)',
+  formula: '5 + sin(pi * h * .1) + cos(pi * h * .3 + 0.5*pi) - h * 0.1 + cos(theta*20) * .3',
   minHeight: 0,
-  maxHeight: 20,
-  segments: 32,
-  slices: 50,
+  maxHeight: 15,
+  segments: 100,
+  slices: 100,
 };
 
 export const useVaseStore = create<VaseState & SceneState>((set, get) => ({
